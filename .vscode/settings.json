@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.v": "verilog",
+        "*.md": "markdown",
+        "*.txt": "hlsl",
+        "iostream": "cpp"
+    }
+}

@@ -1,0 +1,32 @@
+Testbench.h
+13	#include "tlm_utils/tlm_quantumkeeper.h"   // !!! 不能放在 #include <systemc> 前面
+65	tlm_utils::tlm_quantumkeeper m_qk;
+
+
+SobelFilter.cpp
+95	delay = sc_time(1, SC_NS);
+
+Initiator.h
+8	#include "tlm_utils/tlm_quantumkeeper.h"
+27  tlm_utils::tlm_quantumkeeper m_qk;
+
+Initiator.cpp
+5,6
+	m_qk.set_global_quantum( sc_time(15, SC_NS) );
+	m_qk.reset();
+56 comment //wait(dummyDelay);
+57~59
+	m_qk.inc( dummyDelay );
+	// Check if synchronize is necessary
+	if (m_qk.need_sync()) m_qk.sync();
+
+main.cpp
+6
+	// for simulation time
+	#include <time.h>
+58,59
+	double START,END;
+	START = clock();
+61,62
+	END = clock();
+	cout << endl << "simulation time == " << (END - START) / CLOCKS_PER_SEC << " S" << endl;

@@ -1,0 +1,51 @@
+複製lab4  3.4 sobel_tlm_bus
+tlm_log.cpp
+tlm_log.h
+MemoryMap.h
+SimpleBus.h
+
+main.cpp
+12	#include "SimpleBus.h".
+17,18
+	#include "Initiator.cpp"
+	extern R_counter,W_counter;
+36,37
+	SimpleBus<1, 1> bus("bus");
+	bus.set_clock_period(sc_time(CLOCK_PERIOD, SC_NS));
+39~41
+	tb.initiator.i_skt(bus.t_skt[0]);Aㄙ
+	bus.setDecode(0, SOBEL_MM_BASE, SOBEL_MM_BASE + SOBEL_MM_SIZE - 1);
+	bus.i_skt[0](sobel_filter.t_skt);
+原本的 tb.initiator.i_skt.bind(sobel_filter.t_skt); -> bus.i_skt[0](sobel_filter.t_skt);
+
+
+
+Testbench.h
+16	#include "MemoryMap.h"
+31  ~Testbench(); ///////////有無defualt 有差嗎？ 原本有，lab04 沒有(有，只是寫在.cpp {})
+
+Testbench.cpp  
+11,12
+	unsigned int R_counter = 0;
+	unsigned int W_counter = 0;
+36 	Testbench::~Testbench() {}
+176 R_counter++;
+199	W_counter++;
+
+Initiator.h
+
+
+SobelFilter.h
+
+
+SobelFilter.cpp
+
+
+filter_def.h
+18~23
+// Gaussian blue mask
+const double mask[MASK_N][MASK_X][MASK_Y] = {{{1, 4, 7, 4, 1},
+                                              {4, 16, 26, 16, 4},
+                                              {7, 26, 41, 26, 7},
+                                              {4, 16, 26, 16, 4},
+                                              {1, 4, 7, 4, 1}}};

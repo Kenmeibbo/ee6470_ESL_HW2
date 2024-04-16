@@ -1,0 +1,99 @@
+複製lab03 sobel_tlm_p2p 中的 initiator.h and initiator.cpp to part1
+
+main.cpp
+32  tb.initiator.i_skt(sobel_filter.t_skt);
+30,31
+	comment
+33~55
+	comment
+58,59
+	double START,END;
+  	START = clock();
+61,62
+	END = clock();
+	cout << endl << "simulation time == " << (END - START) / CLOCKS_PER_SEC << " S" << endl;
+
+testbench.h
+9	using namespace sc_dt;
+11~13
+	#include "tlm.h"
+	#include "tlm_utils/simple_target_socket.h"
+	#include <cstdint>
+	#include "Initiator.h"
+24~29
+	comment 掉
+32	Initiator initiator;
+
+Testbench.cpp
+32	initiator("initiator"),
+34,35
+	comment
+135 word data;
+136	unsigned char mask[4];
+137,138
+	comment
+170~173
+	comment
+175~183
+	data.uc[0] = R;
+    data.uc[1] = G;
+	data.uc[2] = B;
+	mask[0] = 0xff;
+	mask[1] = 0xff;
+	mask[2] = 0xff;
+	mask[3] = 0;
+	initiator.write_to_socket(SOBEL_FILTER_R_ADDR, mask, data.uc, 4);///跟Initiator.h的read_from_socket對接
+	wait(1 * CLOCK_PERIOD, SC_NS);
+188~190
+	comment
+193~202
+	bool done=false;
+	int output_num=0;
+	while(!done){
+		initiator.read_from_socket(SOBEL_FILTER_CHECK_ADDR, mask, data.uc, 4);
+		output_num = data.sint; /// signed int
+		if(output_num>0) done=true;
+	}
+	wait(10 * CLOCK_PERIOD, SC_NS);
+	initiator.read_from_socket(SOBEL_FILTER_RESULT_ADDR, mask, data.uc, 4);
+	total = data.sint;
+      
+SobelFilter.h
+5	using namespace sc_dt; 不加看看
+7~9
+	#include "tlm.h"
+	#include "tlm_utils/simple_target_socket.h"
+	#include <cstdint>  不加看看
+15  tlm_utils::simple_target_socket<SobelFilter> t_skt;
+16,17
+	comment
+18~21
+	cancel in and out 
+	ex：sc_fifo_in -> sc_fifo
+30	unsigned int base_offset;
+31,32
+	void blocking_transport(tlm::tlm_generic_payload &payload,
+							sc_core::sc_time &delay);
+							
+SobelFilter.cpp
+1 	comment
+8	#include <iomanip>
+11	, t_skt("t_skt"), base_offset(0)
+13~15
+	comment
+18	t_skt.register_b_transport(this, &SobelFilter::blocking_transport);
+88~144
+	blocking transport
+95	delay = sc_time(1, SC_NS);
+	
+filter_def.h
+8~15
+const int SOBEL_FILTER_R_ADDR = 0x00000000;
+const int SOBEL_FILTER_RESULT_ADDR = 0x00000004;
+const int SOBEL_FILTER_CHECK_ADDR = 0x00000008;
+
+union word {
+  int sint;
+  unsigned int uint;
+  unsigned char uc[4];
+};
