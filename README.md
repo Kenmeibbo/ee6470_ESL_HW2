@@ -45,8 +45,10 @@ void SobelFilter::blocking_transport(...){
 Use image "lena_color_256_noise.bmp" as input
 - **Input image** 
 <img src="images/p1_lena_color_256_noise.bmp" alt="Local Image" width="256" height="256" style="display: block; margin: 0 auto;">
+
 - **Output image** 
 <img src="images/p1_out.bmp" alt="Local Image" width="256" height="256" style="display: block; margin: 0 auto;">
+
 - **Run time** 
 <img src="images/p1_run_time.png" alt="Local Image" width="600" height="150" style="display: block; margin: 0 auto;">
 
@@ -86,11 +88,14 @@ if (m_qk.need_sync()) m_qk.sync();
 Use image "lena_color_256_noise.bmp" as input
 - **Input image** 
 <img src="images/p1_lena_color_256_noise.bmp" alt="Local Image" width="256" height="256" style="display: block; margin: 0 auto;">
+
 - **Output image** 
 <img src="images/p2_out.bmp" alt="Local Image" width="256" height="256" style="display: block; margin: 0 auto;">
+
 - **Run time** 
 <img src="images/p2_run_time.png" alt="Local Image" width="600" height="150" style="display: block; margin: 0 auto;">
 Conver to Part 1, we can realize that the quantumkeeper and can reduce the simulation time but the waiting time(simulated time) won't change.<br>
+
 * Simulation time
 (0.155934 -> 0.125585)
 
@@ -136,11 +141,14 @@ W_counter++;
 Use image "lena_color_256_noise.bmp" as input
 - **Input image** 
 <img src="images/p1_lena_color_256_noise.bmp" alt="Local Image" width="256" height="256" style="display: block; margin: 0 auto;">
+
 - **Output image** 
 <img src="images/p3_out.bmp" alt="Local Image" width="256" height="256" style="display: block; margin: 0 auto;">
+
 - **Run time** 
 <img src="images/p3_run_time.png" alt="Local Image" width="600" height="150" style="display: block; margin: 0 auto;">
 Conver to Part 1, we can realize that the quantumkeeper and can reduce the simulation time but the waiting time(simulated time) won't change.<br>
+
 * Simulation time
 (0.155934 -> 0.123403)
 * No. of Read = 332800
