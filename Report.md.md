@@ -49,6 +49,7 @@ Use image "lena_color_256_noise.bmp" as input
 <img src="images/p1_out.bmp" alt="Local Image" width="256" height="256" style="display: block; margin: 0 auto;">
 - **Run time** 
 <img src="images/p1_run_time.png" alt="Local Image" width="600" height="150" style="display: block; margin: 0 auto;">
+
 ## **Part 2**
 ### Requirment
 (30 pt) Gaussian Blur Filter with quantum keeper
@@ -80,6 +81,7 @@ Use m_qk.inc to storage local time and synchronize after 15ns
 m_qk.inc( dummyDelay );
 if (m_qk.need_sync()) m_qk.sync();
 ```
+
 ### Result
 Use image "lena_color_256_noise.bmp" as input
 - **Input image** 
@@ -91,6 +93,7 @@ Use image "lena_color_256_noise.bmp" as input
 Conver to Part 1, we can realize that the quantumkeeper and can reduce the simulation time but the waiting time(simulated time) won't change.<br>
 * Simulation time
 (0.155934 -> 0.125585)
+
 ## **Part 3**
 ### Requirment
 (30 pt) Gaussian Blur Filter with TLM interconnect
